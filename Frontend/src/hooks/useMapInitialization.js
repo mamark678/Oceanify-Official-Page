@@ -42,20 +42,20 @@ export const useMapInitialization = (
       const map = L.map("map").setView([8.0, 125.0], 6);
       mapRef.current = map;
 
-      const STADIA_API_KEY = import.meta.env.VITE_STADIA_API_KEY;
+      const STADIA_API_KEY = "a6168be8-4536-4dd7-a0bf-1669808c7103"; // Put your API key directly here
 
-      console.log('=== STADIA DEBUG ===');
-      console.log('API Key exists:', !!STADIA_API_KEY);
-      console.log('API Key length:', STADIA_API_KEY?.length);
-      console.log('===================');
-
-      L.tileLayer(
-        `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${STADIA_API_KEY}`,
-        {
-          attribution:
-            '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
-        }
-      ).addTo(map);
+        console.log('=== STADIA DEBUG ===');
+        console.log('API Key exists:', !!STADIA_API_KEY);
+        console.log('API Key length:', STADIA_API_KEY?.length);
+        console.log('===================');
+        
+        L.tileLayer(
+          `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${STADIA_API_KEY}`,
+          {
+            attribution:
+              '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
+          }
+        ).addTo(map);
 
       const markerIcon = L.icon({
         iconUrl: "/marker-icon.png",
