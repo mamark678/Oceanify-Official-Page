@@ -42,15 +42,29 @@ export const useMapInitialization = (
       const map = L.map("map").setView([8.0, 125.0], 6);
       mapRef.current = map;
 
-      // Base tiles with dark theme
+      const STADIA_API_KEY = import.meta.env.VITE_STADIA_API_KEY;
+
+      console.log('=== STADIA DEBUG ===');
+      console.log('API Key exists:', !!STADIA_API_KEY);
+      console.log('API Key length:', STADIA_API_KEY?.length);
+      console.log('===================');
+
       L.tileLayer(
-        "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png?api_key=${STADIA_API_KEY}`,
         {
           attribution:
             '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
         }
       ).addTo(map);
 
+      const markerIcon = L.icon({
+        iconUrl: "/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "/marker-shadow.png",
+        shadowSize: [41, 41],
+      });
       // Weather layers
       const tempLayer = L.tileLayer(
         `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`,
