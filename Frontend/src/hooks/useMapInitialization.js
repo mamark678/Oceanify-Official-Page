@@ -39,14 +39,18 @@ export const useMapInitialization = (
       const L = window.L;
       if (!L) return console.error("Leaflet failed to load");
 
-        const STADIA_API_KEY = "a6168be8-4536-4dd7-a0bf-1669808c7103";
+      // ✅ CREATE THE MAP FIRST
+      const map = L.map("map").setView([8.0, 125.0], 7);
+      mapRef.current = map;
+
+      const STADIA_API_KEY = "a6168be8-4536-4dd7-a0bf-1669808c7103";
   
-        L.tileLayer(
-          `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png?api_key=${STADIA_API_KEY}`,
-          {
-            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
-          }
-        ).addTo(map);
+      L.tileLayer(
+        `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png?api_key=${STADIA_API_KEY}`,
+        {
+          attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
+        }
+      ).addTo(map);
 
       const markerIcon = L.icon({
         iconUrl: "/marker-icon.png",
