@@ -98,13 +98,15 @@ const Navbar = () => {
                 <AlertTriangle className="w-4 h-4" /> Alerts
               </Link>
             )}
-
-            <Link
-              to="/activity-logs"
-              className="flex items-center gap-1 font-medium text-white duration-300 text-decoration-none hover:text-white/80"
-            >
-              <Activity className="w-4 h-4" /> Activity Logs
-            </Link>
+            
+            {isAdmin && (
+              <Link
+                to="/activity-logs"
+                className="flex items-center gap-1 font-medium text-white duration-300 text-decoration-none hover:text-white/80"
+              >
+                <Activity className="w-4 h-4" /> Activity Logs
+              </Link>
+            )}
 
             {/* Maps */}
             <Link
