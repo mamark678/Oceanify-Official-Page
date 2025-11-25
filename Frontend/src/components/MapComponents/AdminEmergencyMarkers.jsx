@@ -79,10 +79,6 @@ export default function AdminEmergencyMarkers({ mapRef }) {
                     class="px-3 py-1 bg-green-600 hover:bg-green-700 text-white text-xs rounded-lg transition-colors">
                     Acknowledge
                   </button>
-                  <button onclick="handleViewDetails('${req.id}')" 
-                    class="px-3 py-1 bg-blue-600 hover:bg-blue-700 text-white text-xs rounded-lg transition-colors">
-                    View Details
-                  </button>
                 </div>
               </div>`
             );
@@ -112,13 +108,6 @@ export default function AdminEmergencyMarkers({ mapRef }) {
           }
         };
 
-        window.handleViewDetails = (rescueId) => {
-          // Navigate to rescue details page or open modal
-          console.log('View details for:', rescueId);
-          // You can implement navigation or modal opening here
-          window.location.href = `/admin/rescue/${rescueId}`;
-        };
-
       } catch (err) {
         console.error("Error fetching rescue requests:", err);
       }
@@ -143,7 +132,6 @@ export default function AdminEmergencyMarkers({ mapRef }) {
       
       // Remove global functions
       window.handleAcknowledgeRescue = undefined;
-      window.handleViewDetails = undefined;
     };
   }, [mapRef, userRole, authLoading]);
 

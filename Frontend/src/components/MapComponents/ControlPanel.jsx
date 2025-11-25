@@ -39,12 +39,12 @@ const ControlPanel = ({
   );
 
   return (
-    <div className="fixed top-0 bottom-0 right-24 w-80 animate-in slide-in-from-right">
+    <div className="fixed top-0 bottom-0 right-17 w-80 animate-in slide-in-from-right">
       {/* Backdrop that closes panel when clicking outside */}
       <div className="absolute inset-0 bg-transparent" onClick={onClose} />
 
       {/* Panel content - positioned to the right */}
-      <div className="absolute top-24 right-4 w-80">
+      <div className="absolute top-13 right-2 w-55">
         <div className="bg-[#1e1e1e] border-1 border-neutral-600 rounded-xl">
           <div className="p-4">
             {/* Header */}

@@ -584,7 +584,7 @@ export default function WeatherNotificationPanel({ onShowAlerts }) {
   // ===============================================
 
   return (
-    <div className="fixed top-4 right-4 sm:top-48 sm:right-28 z-[1000] w-[calc(100vw-2rem)] sm:w-80 backdrop-blur-xl rounded-2xl border-2 border-[#373737] shadow-xl transition-all duration-300 bg-[#1e1e1e] mx-auto">
+    <div className="fixed top-54 right-4 sm:top-48 sm:right-28 z-[1000] w-[calc(100vw-2rem)] sm:w-80 backdrop-blur-xl rounded-2xl border-2 border-[#373737] shadow-xl transition-all duration-300 bg-[#1e1e1e] mx-auto">
       {/* Collapsed State */}
       {!isExpanded ? (
         <div

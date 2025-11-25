@@ -635,44 +635,6 @@ export default function DashboardPage() {
   const safetyIndex = getSafetyIndex();
   const advisory = getSeaAdvisory();
 
-  // Render compact marine alerts header
-  const renderCompactAlertsHeader = () => (
-    <div
-      className="flex items-center justify-between p-3 cursor-pointer"
-      onClick={() => setExpandedAlert(!expandedAlert)}
-    >
-      <div className="flex items-center gap-2">
-        <div
-          className="flex items-center justify-center w-6 h-6 text-xs border-2 rounded-full"
-          style={{
-            backgroundColor: severityConfig.bgColor,
-            color: severityConfig.color,
-            borderColor: severityConfig.borderColor,
-          }}
-        >
-          {severityConfig.icon}
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-white">
-              Marine Safety
-            </span>
-            <span
-              className="px-2 py-0.5 text-xs font-bold rounded-full"
-              style={{ backgroundColor: severityConfig.color, color: "white" }}
-            >
-              {severityConfig.label}
-            </span>
-          </div>
-          <div className="flex items-center gap-1 text-xs text-gray-400">
-            <Clock className="w-3 h-3" />
-            <span>Live conditions</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   // Render expanded marine alerts content
   const renderExpandedAlertsContent = () => (
     <div className="p-3 border-t border-gray-700">
