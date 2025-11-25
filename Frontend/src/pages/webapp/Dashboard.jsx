@@ -102,6 +102,20 @@ export default function DashboardPage() {
         setUserLocation({ lat: latitude, lng: longitude });
         await loadByCoords(latitude, longitude, { setGlobalLoading: true });
       },
+      async (err) => {
+        console.warn("Geolocation error:", err);
+        setError("Location access denied. Using default location.");
+        const defaultLat = 7.0667;
+        const defaultLng = 125.6333;
+        setUserLocation({ lat: defaultLat, lng: defaultLng });
+        try {
+          await loadByCoords(defaultLat, defaultLng, {
+            setGlobalLoading: true,
+          });
+        } catch {
+          // setDemoData();
+        }
+      },
       { enableHighAccuracy: true, timeout: 10000 }
     );
   };
@@ -620,44 +634,6 @@ export default function DashboardPage() {
 
   const safetyIndex = getSafetyIndex();
   const advisory = getSeaAdvisory();
-
-  // Render compact marine alerts header
-  const renderCompactAlertsHeader = () => (
-    <div
-      className="flex items-center justify-between p-3 cursor-pointer"
-      onClick={() => setExpandedAlert(!expandedAlert)}
-    >
-      <div className="flex items-center gap-2">
-        <div
-          className="flex items-center justify-center w-6 h-6 text-xs border-2 rounded-full"
-          style={{
-            backgroundColor: severityConfig.bgColor,
-            color: severityConfig.color,
-            borderColor: severityConfig.borderColor,
-          }}
-        >
-          {severityConfig.icon}
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-semibold text-white">
-              Marine Safety
-            </span>
-            <span
-              className="px-2 py-0.5 text-xs font-bold rounded-full"
-              style={{ backgroundColor: severityConfig.color, color: "white" }}
-            >
-              {severityConfig.label}
-            </span>
-          </div>
-          <div className="flex items-center gap-1 text-xs text-gray-400">
-            <Clock className="w-3 h-3" />
-            <span>Live conditions</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
 
   // Render expanded marine alerts content
   const renderExpandedAlertsContent = () => (
