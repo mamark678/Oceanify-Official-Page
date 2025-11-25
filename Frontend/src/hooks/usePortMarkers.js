@@ -18,7 +18,7 @@ export const usePortMarkers = (mapRef, mapLoaded) => {
 
       const marker = L.marker([port.latitude, port.longitude], { icon }).addTo(map)
         .bindPopup(`
-          <div style="min-width: 260px; padding: 12px;">
+          <div style="min-width: 200px; padding: 12px;">
             <h3 style="margin: 0 0 8px 0; color: #2c3e50; font-size: 16px; font-weight: bold;">
               ${port.port_name}
             </h3>
@@ -77,14 +77,6 @@ export const usePortMarkers = (mapRef, mapLoaded) => {
       portMarkersRef.current.push(marker);
     });
 
-    // Add global functions for data selection
-    window.viewWeatherData = async (lat, lng, locationName) => {
-      // This will be handled by the main component
-    };
-
-    window.viewWaveData = async (lat, lng, locationName) => {
-      // This will be handled by the main component
-    };
   };
 
   const removePortMarkers = () => {
