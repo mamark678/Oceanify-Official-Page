@@ -39,18 +39,27 @@ export const useMapInitialization = (
       const L = window.L;
       if (!L) return console.error("Leaflet failed to load");
 
-      const map = L.map("map").setView([8.0, 125.0], 6);
+      // ✅ CREATE THE MAP FIRST
+      const map = L.map("map").setView([8.0, 125.0], 7);
       mapRef.current = map;
 
-      // Base tiles with dark theme
+      const STADIA_API_KEY = "a6168be8-4536-4dd7-a0bf-1669808c7103";
+  
       L.tileLayer(
-        "https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png",
+        `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png?api_key=${STADIA_API_KEY}`,
         {
-          attribution:
-            '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
+          attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
         }
       ).addTo(map);
 
+      const markerIcon = L.icon({
+        iconUrl: "/marker-icon.png",
+        iconSize: [25, 41],
+        iconAnchor: [12, 41],
+        popupAnchor: [1, -34],
+        shadowUrl: "/marker-shadow.png",
+        shadowSize: [41, 41],
+      });
       // Weather layers
       const tempLayer = L.tileLayer(
         `https://tile.openweathermap.org/map/temp_new/{z}/{x}/{y}.png?appid=${API_KEY}`,
