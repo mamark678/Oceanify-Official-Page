@@ -6,7 +6,7 @@ export const useMapInitialization = (
   setMapLoaded,
   setShowForecastPanel,
   requestRescueAt,
-  setUserLocation 
+  setUserLocation
 ) => {
   useEffect(() => {
     const API_KEY = import.meta.env.VITE_OPENWEATHER_API_KEY;
@@ -44,11 +44,12 @@ export const useMapInitialization = (
       mapRef.current = map;
 
       const STADIA_API_KEY = "a6168be8-4536-4dd7-a0bf-1669808c7103";
-  
+
       L.tileLayer(
         `https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}.png?api_key=${STADIA_API_KEY}`,
         {
-          attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
+          attribution:
+            '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>',
         }
       ).addTo(map);
 
@@ -109,26 +110,26 @@ export const useMapInitialization = (
 
           L.marker([latitude, longitude], { icon: userIcon }).addTo(map);
           map.setView([latitude, longitude], 7);
-          
+
           // ✅ SET THE USER LOCATION HERE
           if (setUserLocation) {
             setUserLocation({
               lat: latitude,
               lng: longitude,
-              name: "Your Location"
+              name: "Your Location",
             });
           }
         },
         (err) => {
-          console.warn("Geolocation error:", err);
+          // console.warn("Geolocation error:", err);
           // ✅ Set a default location if geolocation fails
-          if (setUserLocation) {
-            setUserLocation({
-              lat: 8.0,
-              lng: 125.0,
-              name: "Default Location"
-            });
-          }
+          // if (setUserLocation) {
+          //   setUserLocation({
+          //     lat: 7.0667,
+          //     lng: 125.6333,
+          //     name: "Default Location",
+          //   });
+          // }
         },
         { enableHighAccuracy: true, timeout: 10000 }
       );

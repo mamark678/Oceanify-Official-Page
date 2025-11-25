@@ -102,20 +102,6 @@ export default function DashboardPage() {
         setUserLocation({ lat: latitude, lng: longitude });
         await loadByCoords(latitude, longitude, { setGlobalLoading: true });
       },
-      async (err) => {
-        console.warn("Geolocation error:", err);
-        setError("Location access denied. Using default location.");
-        const defaultLat = 7.0667;
-        const defaultLng = 125.6333;
-        setUserLocation({ lat: defaultLat, lng: defaultLng });
-        try {
-          await loadByCoords(defaultLat, defaultLng, {
-            setGlobalLoading: true,
-          });
-        } catch {
-          // setDemoData();
-        }
-      },
       { enableHighAccuracy: true, timeout: 10000 }
     );
   };

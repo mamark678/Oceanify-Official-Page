@@ -301,12 +301,12 @@ export default function Maps() {
     }
   };
 
-  const closeAllPanels = () => {
-    setShowControlsPanel(false);
-    setShowAlertsPanel(false);
-    setShowForecastPanel(false);
-    setShowWeatherNotification(false); // Add this
-  };
+  // const closeAllPanels = () => {
+  //   setShowControlsPanel(false);
+  //   setShowAlertsPanel(false);
+  //   setShowForecastPanel(false);
+  //   setShowWeatherNotification(false); // Add this
+  // };
 
   // Add handler for showing detailed alerts from WeatherNotificationPanel
   const handleShowAlerts = () => {
@@ -336,7 +336,7 @@ export default function Maps() {
       : null;
 
   return (
-    <div className="min-h-screen bg-[#0f0f0f] relative">
+    <div className="min-h-screen bg-[#0f0f0f]">
       {/* Navbar */}
       <Navbar />
 

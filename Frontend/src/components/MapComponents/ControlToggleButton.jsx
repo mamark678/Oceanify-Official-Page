@@ -11,7 +11,7 @@ const ControlToggleButton = ({
   alertsCount,
 }) => {
   return (
-    <div className="fixed flex flex-col gap-4 bottom-4 right-4 sm:top-24 sm:right-4 z-1000">
+    <div className="fixed flex flex-col gap-4 top-20 right-4 pointer-events-auto">
       {/* Layers Toggle */}
       <button
         onClick={toggleControlsPanel}
@@ -29,7 +29,7 @@ const ControlToggleButton = ({
       {/* Weather Notification Toggle */}
       <button
         onClick={toggleWeatherNotification}
-        className={`p-10 sm:p-4 bg-[#1e1e1e] rounded-full border-1 border-neutral-600 hover:bg-[#272727] transition-all duration-200 ${
+        className={`p-3 sm:p-4 bg-[#1e1e1e] rounded-full border-1 border-neutral-600 hover:bg-[#272727] transition-all duration-200 ${
           showWeatherNotification ? "bg-[#272727]" : ""
         }`}
       >

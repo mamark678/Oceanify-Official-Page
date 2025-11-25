@@ -198,21 +198,3 @@ export default function Profile() {
     </article>
   );
 }
-
-// export default function Profile() {
-
-//   return (
-//     <article className="min-h-screen bg-[#0f0f0f]">
-//       {/* Default Image */}
-//       <section>
-//         {/* <img src={require('../assets/images/default_profile.jpg')} alt="default_page" /> */}
-//       </section>
-
-//       {/* Personal Information */}
-//       <section>HELLO</section>
-
-//       {/* Number of Times the user called for rescue */}
-//       <section></section>
-//     </article>
-//   );
-// }
