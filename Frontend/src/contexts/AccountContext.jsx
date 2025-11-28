@@ -1,5 +1,5 @@
 // contexts/AccountContext.jsx
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useContext, useState } from 'react';
 import apiClient from '../utils/apiClient'; // ✅ Changed from axios
 
 const AccountContext = createContext();
@@ -27,10 +27,20 @@ export const AccountProvider = ({ children }) => {
     try {
       // ✅ Using apiClient instead of axios
       const response = await apiClient.get("/accounts");
-      setAccounts(response.data);
+      console.log('AccountContext response:', response);
+      console.log('AccountContext data:', response.data);
+
+      // Validate response data
+      if (typeof response.data === 'string' && response.data.includes('<!DOCTYPE html>')) {
+        console.log('❌ Account API returned HTML instead of JSON');
+        throw new Error('API returned HTML');
+      }
+
+      setAccounts(Array.isArray(response.data) ? response.data : []);
       setLastFetch(new Date());
     } catch (error) {
       console.error("Error loading accounts:", error);
+      // Could add Supabase fallback here if needed
     } finally {
       setLoading(false);
     }

@@ -51,7 +51,14 @@ export const ActivityLogProvider = ({ children }) => {
       console.log('✅ API Response received:', response);
       console.log('✅ Response data:', response.data);
       console.log('✅ Data type:', typeof response.data, Array.isArray(response.data) ? 'is array' : 'not array');
-      setLogs(response.data);
+
+      // Validate response data
+      if (typeof response.data === 'string' && response.data.includes('<!DOCTYPE html>')) {
+        console.log('❌ API returned HTML instead of JSON, trying Supabase fallback');
+        throw new Error('API returned HTML');
+      }
+
+      setLogs(Array.isArray(response.data) ? response.data : []);
       setLastFetched(Date.now());
       console.log('✅ Activity logs set successfully');
     } catch (error) {
