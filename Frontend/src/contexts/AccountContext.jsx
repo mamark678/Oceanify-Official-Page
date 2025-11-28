@@ -23,7 +23,7 @@ export const AccountProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [lastFetch, setLastFetch] = useState(null);
 
-  const loadAccounts = async (forceRefresh = false) => {
+  const loadAccounts = useCallback(async (forceRefresh = false) => {
     // Only fetch if we haven't fetched yet or force refresh
     if (!forceRefresh && accounts.length > 0) {
       return;
@@ -50,7 +50,7 @@ export const AccountProvider = ({ children }) => {
       // Fallback to Supabase
       try {
         const { data: supabaseData, error: supabaseError } = await supabase
-          .from("accounts") // Assuming the table is called 'accounts'
+          .from("profiles") // Table name is 'profiles'
           .select("*")
           .order("created_at", { ascending: false });
 
@@ -66,7 +66,7 @@ export const AccountProvider = ({ children }) => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [accounts.length]);
 
   const addAccount = (account) => {
     setAccounts(prev => [...prev, account]);
