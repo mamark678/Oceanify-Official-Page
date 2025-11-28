@@ -1,6 +1,6 @@
 // contexts/AccountContext.jsx
 import { createClient } from "@supabase/supabase-js";
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useState } from 'react';
 import apiClient from '../utils/apiClient'; // ✅ Changed from axios
 
 const supabase = createClient(
