@@ -1,6 +1,12 @@
 // contexts/AccountContext.jsx
+import { createClient } from "@supabase/supabase-js";
 import { createContext, useContext, useState } from 'react';
 import apiClient from '../utils/apiClient'; // ✅ Changed from axios
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 const AccountContext = createContext();
 
@@ -39,8 +45,24 @@ export const AccountProvider = ({ children }) => {
       setAccounts(Array.isArray(response.data) ? response.data : []);
       setLastFetch(new Date());
     } catch (error) {
-      console.error("Error loading accounts:", error);
-      // Could add Supabase fallback here if needed
+      console.error("Error loading accounts from Laravel:", error);
+
+      // Fallback to Supabase
+      try {
+        const { data: supabaseData, error: supabaseError } = await supabase
+          .from("accounts") // Assuming the table is called 'accounts'
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (supabaseError) throw supabaseError;
+        if (supabaseData) {
+          setAccounts(supabaseData);
+          setLastFetch(new Date());
+          console.log('✅ Accounts loaded from Supabase fallback');
+        }
+      } catch (supabaseError) {
+        console.error("Error loading accounts from Supabase:", supabaseError);
+      }
     } finally {
       setLoading(false);
     }
