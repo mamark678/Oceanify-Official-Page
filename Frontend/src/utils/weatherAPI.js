@@ -40,9 +40,17 @@ export const fetchWaveData = async (lat, lng) => {
       return data;
     }
     console.log('🌊 Wave response not ok:', response.status, response.statusText);
+    // Log CORS or other fetch errors
+    if (response.status === 0) {
+      console.error('🌊 CORS or network error - wave data unavailable in production');
+    }
     return null;
   } catch (error) {
     console.error("Failed to fetch wave data:", error);
+    // Check if it's a CORS error
+    if (error.name === 'TypeError' && error.message.includes('CORS')) {
+      console.error('🌊 CORS error detected - wave API blocked in production environment');
+    }
     return null;
   }
 };
