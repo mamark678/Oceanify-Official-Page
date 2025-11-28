@@ -143,9 +143,11 @@ export default function DashboardPage() {
     console.log('🏖️ useEffect check - waveData:', waveData);
     console.log('🏖️ useEffect check - isExpired:', isExpired);
 
-    // Clear invalid wave data from cache
+    // Clear invalid wave data from cache first
+    let validWaveData = waveData;
     if (waveData && (!waveData.current || !waveData.current.wave_height)) {
       console.log('🏖️ Clearing invalid wave data from cache');
+      validWaveData = null;
       setWaveData(null);
       try {
         localStorage.removeItem('cachedWave');
@@ -155,7 +157,7 @@ export default function DashboardPage() {
       }
     }
 
-    if (userLocation && weatherData && waveData && !isExpired) {
+    if (userLocation && weatherData && validWaveData && !isExpired) {
       console.log('🏖️ Using cached data, setting loading to false');
       setLoading(false);
       return; // Cache is valid — use it
