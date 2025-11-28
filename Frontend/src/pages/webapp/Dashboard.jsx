@@ -90,11 +90,11 @@ export default function DashboardPage() {
 
       if (currentWeather) setWeatherData(currentWeather);
 
-      if (currentWaves && currentWaves.current) {
+      if (currentWaves && currentWaves.current && currentWaves.current.wave_height !== null && currentWaves.current.wave_height !== undefined) {
         console.log('🏖️ Setting valid wave data:', currentWaves);
         setWaveData(currentWaves);
       } else {
-        console.log('🏖️ Clearing invalid wave data, setting to null');
+        console.log('🏖️ Clearing invalid wave data (null values), setting to null');
         // Clear invalid wave data
         setWaveData(null);
       }
