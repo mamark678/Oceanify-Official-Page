@@ -985,6 +985,15 @@ export default function DashboardPage() {
                     </div>
                   </div>
                 )}
+
+                {waveData?.current?.wave_height && (
+                  <div className="mb-4 p-3 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                    <div className="flex items-center gap-2 text-blue-300 text-sm">
+                      <Waves className="w-4 h-4" />
+                      <span>Demo wave data - Deploy backend to enable live marine data</span>
+                    </div>
+                  </div>
+                )}
                 <div className="grid grid-cols-2 gap-4 md:grid-cols-3">
                   {[
                     {
