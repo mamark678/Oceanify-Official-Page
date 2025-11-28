@@ -10,7 +10,9 @@ export const useAlerts = () => {
       try {
         console.log("🔄 Fetching alerts from Laravel...");
         
-        const response = await fetch("http://localhost:8000/api/alerts", {
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api';
+        console.log('useAlerts API URL:', apiUrl);
+        const response = await fetch(`${apiUrl}/alerts`, {
           method: "GET",
           headers: {
             Accept: "application/json",
