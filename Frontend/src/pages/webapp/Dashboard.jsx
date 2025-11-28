@@ -85,10 +85,16 @@ export default function DashboardPage() {
       ]);
       console.log('🏖️ Weather data result:', currentWeather);
       console.log('🏖️ Wave data result:', currentWaves);
+      console.log('🏖️ Wave data current:', currentWaves?.current);
+      console.log('🏖️ Wave data wave_height:', currentWaves?.current?.wave_height);
+
       if (currentWeather) setWeatherData(currentWeather);
+
       if (currentWaves && currentWaves.current) {
+        console.log('🏖️ Setting valid wave data:', currentWaves);
         setWaveData(currentWaves);
       } else {
+        console.log('🏖️ Clearing invalid wave data, setting to null');
         // Clear invalid wave data
         setWaveData(null);
       }
@@ -132,6 +138,11 @@ export default function DashboardPage() {
     const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
     const isExpired = cacheTime && Date.now() - cacheTime > CACHE_DURATION;
 
+    console.log('🏖️ useEffect check - userLocation:', userLocation);
+    console.log('🏖️ useEffect check - weatherData:', weatherData);
+    console.log('🏖️ useEffect check - waveData:', waveData);
+    console.log('🏖️ useEffect check - isExpired:', isExpired);
+
     // Clear invalid wave data from cache
     if (waveData && (!waveData.current || !waveData.current.wave_height)) {
       console.log('🏖️ Clearing invalid wave data from cache');
@@ -145,10 +156,12 @@ export default function DashboardPage() {
     }
 
     if (userLocation && weatherData && waveData && !isExpired) {
+      console.log('🏖️ Using cached data, setting loading to false');
       setLoading(false);
       return; // Cache is valid — use it
     }
 
+    console.log('🏖️ Cache missing or expired, getting user location');
     // If cache missing or expired → refresh location and weather
     getUserLocation();
   }, []);
@@ -977,6 +990,13 @@ export default function DashboardPage() {
                   <Waves className="w-5 h-5 text-cyan-400" />
                   Wave Conditions
                 </h3>
+
+                {/* Debug logging */}
+                {console.log('🌊 Dashboard waveData:', waveData)}
+                {console.log('🌊 waveData?.current:', waveData?.current)}
+                {console.log('🌊 waveData?.current?.wave_height:', waveData?.current?.wave_height)}
+                {console.log('🌊 waveData?.current?.swell_wave_height:', waveData?.current?.swell_wave_height)}
+
                 {(!waveData?.current?.wave_height && !waveData?.current?.swell_wave_height) && (
                   <div className="mb-4 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
                     <div className="flex items-center gap-2 text-yellow-300 text-sm">
