@@ -1,4 +1,4 @@
-import { WEATHER_API_BASE, MARINE_API_BASE } from './constants';
+import { MARINE_API_BASE, WEATHER_API_BASE } from './constants';
 
 export const fetchForecastData = async (lat, lng) => {
   try {
@@ -31,10 +31,15 @@ export const fetchCurrentWeather = async (lat, lng) => {
 export const fetchWaveData = async (lat, lng) => {
   try {
     const waveUrl = `${MARINE_API_BASE}/marine?latitude=${lat}&longitude=${lng}&current=wave_height,wave_direction,swell_wave_height,swell_wave_direction,secondary_swell_wave_height,secondary_swell_wave_period&timezone=auto`;
+    console.log('🌊 Fetching wave data from:', waveUrl);
     const response = await fetch(waveUrl);
+    console.log('🌊 Wave response status:', response.status);
     if (response.ok) {
-      return await response.json();
+      const data = await response.json();
+      console.log('🌊 Wave data received:', data);
+      return data;
     }
+    console.log('🌊 Wave response not ok:', response.status, response.statusText);
     return null;
   } catch (error) {
     console.error("Failed to fetch wave data:", error);

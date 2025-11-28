@@ -10,6 +10,8 @@ const API = axios.create({
 });
 
 console.log("Base URL:", import.meta.env.VITE_API_BASE_URL);
+console.log("Final API baseURL:", baseURL);
+console.log("Window location origin:", window.location.origin);
 
 // ✅ Add request interceptor to include user info in headers
 API.interceptors.request.use(

@@ -1,7 +1,7 @@
 // src/contexts/AlertContext.jsx
-import { createContext, useContext, useState, useCallback, useEffect } from 'react';
-import API from '../api';
 import { createClient } from "@supabase/supabase-js";
+import { createContext, useCallback, useContext, useState } from 'react';
+import API from '../api';
 
 const supabase = createClient(
   import.meta.env.VITE_SUPABASE_URL,
@@ -44,10 +44,14 @@ export const AlertProvider = ({ children }) => {
     console.log('🔄 Fetching alerts from API...');
 
     try {
+      console.log('🔄 Fetching alerts from API...');
       const response = await API.get('/alerts');
+      console.log('✅ API Response received:', response);
+      console.log('✅ Response data:', response.data);
+      console.log('✅ Data type:', typeof response.data, Array.isArray(response.data) ? 'is array' : 'not array');
       setAlerts(response.data);
       setLastFetched(Date.now());
-      console.log('✅ Alerts fetched successfully');
+      console.log('✅ Alerts set successfully');
     } catch (error) {
       console.error("Failed to fetch alerts from Laravel:", error);
       

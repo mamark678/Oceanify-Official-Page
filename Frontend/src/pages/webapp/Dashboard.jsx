@@ -1,34 +1,31 @@
 // React core
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 // Components
 import Navbar from "../../components/Navbar";
 // Ports data
 import mindanaoPorts from "../../data/ports.json";
 // Data clients
-import supabase from "../../supabaseClient";
 import API from "../../api";
+import supabase from "../../supabaseClient";
 // Weather hook (provides cached fetch)
 import { useWeatherData } from "../../hooks/useWeatherForecastingData";
 // Lucid React Icons
 import {
-  Thermometer,
-  Wind,
-  Waves,
+  AlertTriangle,
+  Anchor,
+  Bell,
+  ChevronDown,
+  Clock,
+  Cloud,
   Compass,
   Droplets,
-  Cloud,
-  Gauge,
   Eye,
-  Sun,
+  Gauge,
   Moon,
-  AlertTriangle,
-  Bell,
-  MapPin,
-  Anchor,
   Ship,
-  Clock,
-  ChevronDown,
-  ChevronUp,
+  Sun,
+  Waves,
+  Wind
 } from "lucide-react";
 
 // Coordinate Formatter
@@ -81,14 +78,18 @@ export default function DashboardPage() {
   const loadByCoords = async (lat, lng, opts = { setGlobalLoading: false }) => {
     try {
       if (opts.setGlobalLoading) setLoading(true);
+      console.log('🏖️ Loading weather and wave data for coords:', lat, lng);
       const [currentWeather, currentWaves] = await Promise.all([
         fetchLocationData(lat, lng, "weather"),
         fetchLocationData(lat, lng, "waves"),
       ]);
+      console.log('🏖️ Weather data result:', currentWeather);
+      console.log('🏖️ Wave data result:', currentWaves);
       if (currentWeather) setWeatherData(currentWeather);
       if (currentWaves) setWaveData(currentWaves);
       setError(null);
     } catch (e) {
+      console.error('🏖️ Error loading location data:', e);
       setError("Failed to load location weather data.");
     } finally {
       if (opts.setGlobalLoading) setLoading(false);
