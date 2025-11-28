@@ -86,11 +86,18 @@ export default function DashboardPage() {
       console.log('🏖️ Weather data result:', currentWeather);
       console.log('🏖️ Wave data result:', currentWaves);
       if (currentWeather) setWeatherData(currentWeather);
-      if (currentWaves) setWaveData(currentWaves);
+      if (currentWaves && currentWaves.current) {
+        setWaveData(currentWaves);
+      } else {
+        // Clear invalid wave data
+        setWaveData(null);
+      }
       setError(null);
     } catch (e) {
       console.error('🏖️ Error loading location data:', e);
       setError("Failed to load location weather data.");
+      // Clear wave data on error
+      setWaveData(null);
     } finally {
       if (opts.setGlobalLoading) setLoading(false);
     }
@@ -124,6 +131,18 @@ export default function DashboardPage() {
   useEffect(() => {
     const CACHE_DURATION = 10 * 60 * 1000; // 10 minutes
     const isExpired = cacheTime && Date.now() - cacheTime > CACHE_DURATION;
+
+    // Clear invalid wave data from cache
+    if (waveData && (!waveData.current || !waveData.current.wave_height)) {
+      console.log('🏖️ Clearing invalid wave data from cache');
+      setWaveData(null);
+      try {
+        localStorage.removeItem('cachedWave');
+        localStorage.removeItem('cachedWave-time');
+      } catch (e) {
+        console.error('Error clearing wave cache:', e);
+      }
+    }
 
     if (userLocation && weatherData && waveData && !isExpired) {
       setLoading(false);
@@ -958,7 +977,7 @@ export default function DashboardPage() {
                   <Waves className="w-5 h-5 text-cyan-400" />
                   Wave Conditions
                 </h3>
-                {!waveData?.current && (
+                {(!waveData?.current?.wave_height && !waveData?.current?.swell_wave_height) && (
                   <div className="mb-4 p-3 bg-yellow-900/20 border border-yellow-500/30 rounded-lg">
                     <div className="flex items-center gap-2 text-yellow-300 text-sm">
                       <AlertTriangle className="w-4 h-4" />

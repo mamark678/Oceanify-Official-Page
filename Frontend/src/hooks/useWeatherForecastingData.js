@@ -108,13 +108,21 @@ export const useWeatherData = () => {
         result = await fetchWaveData(lat, lng);
       }
 
-      // Cache only if we actually fetched something
-      if (result) {
+      // Cache only if we actually fetched valid data
+      if (result && result.current) {
         try {
           localStorage.setItem(cacheKey, JSON.stringify(result));
           localStorage.setItem(`${cacheKey}-time`, Date.now());
         } catch (_) {
           // ignore quota errors
+        }
+      } else if (!result) {
+        // Clear cache if API failed
+        try {
+          localStorage.removeItem(cacheKey);
+          localStorage.removeItem(`${cacheKey}-time`);
+        } catch (_) {
+          // ignore
         }
       }
 
